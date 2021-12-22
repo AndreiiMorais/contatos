@@ -11,8 +11,10 @@ class ContatosModel {
       required this.email,
       required this.tipo});
 
-  static List<ContatosModel> preencheLista() {
+  /*static List<ContatosModel> preencheLista() {
     return <ContatosModel>[
+
+      
       ContatosModel(
           nome: 'Thiago',
           email: 'thiago@gmail.com',
@@ -33,9 +35,9 @@ class ContatosModel {
           email: 'Andrei@gmail.com',
           telefone: '3443-2558',
           tipo: ContatoType.favorito),
+    
     ];
-  }
-
+  }*/
 }
 
 enum ContatoType { celular, trabalho, favorito, casa }
