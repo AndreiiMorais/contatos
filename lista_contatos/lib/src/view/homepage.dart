@@ -10,6 +10,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 late List<ContatosModel> lista;
+late List<ContatosModel> listaChamada;
 
 class _MyHomePageState extends State<MyHomePage> {
   final lista = ContatosModel.preencheLista();
@@ -23,6 +24,9 @@ class _MyHomePageState extends State<MyHomePage> {
           itemBuilder: (context, index) {
             var listaContatos = lista[index];
             return ListTile(
+              onTap: () {
+                
+              },
               leading: CircleAvatar(
                 child: ContatoHelper.getIconByContatoType(listaContatos.tipo),
                 backgroundColor: Colors.blue[400],
@@ -48,7 +52,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 thickness: 4,
               ),
           itemCount: lista.length),
-      floatingActionButton: (Icon(Icons.ad_units)),
+      floatingActionButton: FloatingActionButton(
+        child: (Icon(Icons.add)),
+        elevation: 20,
+        onPressed: () {},
+      ),
     );
   }
 }
