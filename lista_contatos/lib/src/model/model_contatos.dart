@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
-
 class ContatosModel {
-  final String nome;
-  final String telefone;
-  final String email;
-  final ContatoType tipo;
-  final bool check = false;
+  late String nome;
+  late String telefone;
+  late String email;
+  late ContatoType tipo;
+  late bool check;
 
   ContatosModel(
       {required this.nome,
@@ -13,7 +11,7 @@ class ContatosModel {
       required this.email,
       required this.tipo});
 
-  static List<ContatosModel> getModel() {
+  static List<ContatosModel> preencheLista() {
     return <ContatosModel>[
       ContatosModel(
           nome: 'Thiago',
@@ -37,6 +35,7 @@ class ContatosModel {
           tipo: ContatoType.favorito),
     ];
   }
+
 }
 
 enum ContatoType { celular, trabalho, favorito, casa }
