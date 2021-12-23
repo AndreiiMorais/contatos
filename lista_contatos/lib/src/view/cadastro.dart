@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lista_contatos/src/controle/contatos_control.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 
 class Cadastro extends StatelessWidget {
   TextEditingController control = TextEditingController();
   List<ContatosModel> lista = [];
   late ContatosModel listaAdicao;
+
   Cadastro({Key? key}) : super(key: key);
 
   @override
@@ -52,9 +54,29 @@ class Cadastro extends StatelessWidget {
                 enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.blue))),
           ),
-          DropdownButton(items: [
-            
-          ],)
+          DropdownButton<ContatoType>(
+            items: const [
+              DropdownMenuItem(
+                value: ContatoType.celular,
+                child: Text('telefone'),
+              ),
+              DropdownMenuItem(
+                value: ContatoType.casa,
+                child: Text('casa'),
+              ),
+              DropdownMenuItem(
+                value: ContatoType.trabalho,
+                child: Text('trabalho'),
+              ),
+              DropdownMenuItem(
+                value: ContatoType.favorito,
+                child: Text('favorito'),
+              ),
+            ],
+            onChanged: (value) {
+              listaAdicao.tipo = value ?? ContatoType.celular;
+            },
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
