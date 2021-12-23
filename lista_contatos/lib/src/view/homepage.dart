@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lista_contatos/src/controle/contatos_control.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
+import 'package:lista_contatos/src/view/cadastro.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -9,11 +10,10 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-late List<ContatosModel> lista;
+late List<ContatosModel> lista = [];
 late List<ContatosModel> listaChamada;
 
 class _MyHomePageState extends State<MyHomePage> {
-  final lista = ContatosModel.preencheLista();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,9 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
           itemBuilder: (context, index) {
             var listaContatos = lista[index];
             return ListTile(
-              onTap: () {
-                
-              },
+              onTap: () {},
               leading: CircleAvatar(
                 child: ContatoHelper.getIconByContatoType(listaContatos.tipo),
                 backgroundColor: Colors.blue[400],
@@ -55,7 +53,9 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         child: (Icon(Icons.add)),
         elevation: 20,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed('teste');
+        },
       ),
     );
   }

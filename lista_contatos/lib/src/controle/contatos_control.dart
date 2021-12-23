@@ -1,11 +1,10 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 
 class Controle {
   List<ContatosModel> lista = []; //criada lista vazia
-  Controle({required this.lista});//construtor
+  
 
   
 }
