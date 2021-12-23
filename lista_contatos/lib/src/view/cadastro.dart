@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 
 class Cadastro extends StatefulWidget {
@@ -11,28 +12,35 @@ class Cadastro extends StatefulWidget {
 }
 
 class _CadastroState extends State<Cadastro> {
-  TextEditingController control = TextEditingController();
+  TextEditingController controlNome = TextEditingController();
+  TextEditingController controlPhone = TextEditingController();
+  TextEditingController controlEmail = TextEditingController();
 
   List<ContatosModel> lista = [];
 
   late ContatosModel listaAdicao = lista[0];
-  int index = 0;
+  late int index;
 
   ContatoType tipo = ContatoType.celular;
 
   @override
   Widget build(BuildContext context) {
-    index = lista.length;
+    if (lista.isEmpty) {
+      index = 0;
+    } else {
+      index = lista.length;
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Novo Contato'),
       ),
       body: ListView(children: [
         TextField(
-          controller: control,
+          maxLength: 100,
+          controller: controlNome,
           onChanged: (value) {
-            if (control.text.isNotEmpty) {
-              listaAdicao.nome = control.text;
+            if (controlNome.text.isNotEmpty) {
+              lista[index].nome = controlNome.text;
             }
           },
           decoration: const InputDecoration(
@@ -41,10 +49,11 @@ class _CadastroState extends State<Cadastro> {
                   borderSide: BorderSide(color: Colors.blue))),
         ),
         TextField(
-          controller: control,
+          maxLength: 15,
+          controller: controlPhone,
           onChanged: (value) {
-            if (control.text.isNotEmpty) {
-              listaAdicao.telefone = control.text;
+            if (controlPhone.text.isNotEmpty) {
+              lista[index].nome = controlPhone.text;
             }
           },
           decoration: const InputDecoration(
@@ -53,10 +62,11 @@ class _CadastroState extends State<Cadastro> {
                   borderSide: BorderSide(color: Colors.blue))),
         ),
         TextField(
-          controller: control,
+          maxLength: 100,
+          controller: controlEmail,
           onChanged: (value) {
-            if (control.text.isNotEmpty) {
-              listaAdicao.email = control.text;
+            if (controlEmail.text.isNotEmpty) {
+              lista[index].nome = controlEmail.text;
             }
           },
           decoration: const InputDecoration(
@@ -106,7 +116,7 @@ class _CadastroState extends State<Cadastro> {
           ],
           onChanged: (value) {
             setState(() {
-              listaAdicao.tipo = value!;
+              lista[index].tipo = value!;
             });
           },
         )
@@ -114,7 +124,9 @@ class _CadastroState extends State<Cadastro> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          lista[index] = listaAdicao;
+          controlNome.clear();
+          controlPhone.clear();
+          controlEmail.clear();
         },
       ),
     );
