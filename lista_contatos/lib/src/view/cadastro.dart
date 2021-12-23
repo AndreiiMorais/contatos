@@ -1,17 +1,27 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:lista_contatos/src/controle/contatos_control.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 
-class Cadastro extends StatelessWidget {
-  TextEditingController control = TextEditingController();
-  List<ContatosModel> lista = [];
-  late ContatosModel listaAdicao;
+class Cadastro extends StatefulWidget {
+  const Cadastro({Key? key}) : super(key: key);
 
-  Cadastro({Key? key}) : super(key: key);
+  @override
+  State<Cadastro> createState() => _CadastroState();
+}
+
+class _CadastroState extends State<Cadastro> {
+  TextEditingController control = TextEditingController();
+
+  List<ContatosModel> lista = [];
+
+  late ContatosModel listaAdicao = lista[0];
+
+  ContatoType tipo = ContatoType.celular;
 
   @override
   Widget build(BuildContext context) {
-    String nome;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Novo Contato'),
@@ -55,26 +65,49 @@ class Cadastro extends StatelessWidget {
                     borderSide: BorderSide(color: Colors.blue))),
           ),
           DropdownButton<ContatoType>(
-            items: const [
+            value: tipo,
+            items: [
               DropdownMenuItem(
+                onTap: () {
+                  setState(() {
+                    tipo = ContatoType.celular;
+                  });
+                },
                 value: ContatoType.celular,
                 child: Text('telefone'),
               ),
               DropdownMenuItem(
+                onTap: () {
+                  setState(() {
+                    tipo = ContatoType.casa;
+                  });
+                },
                 value: ContatoType.casa,
                 child: Text('casa'),
               ),
               DropdownMenuItem(
+                onTap: () {
+                  setState(() {
+                    tipo = ContatoType.trabalho;
+                  });
+                },
                 value: ContatoType.trabalho,
                 child: Text('trabalho'),
               ),
               DropdownMenuItem(
+                onTap: () {
+                  setState(() {
+                    tipo = ContatoType.favorito;
+                  });
+                },
                 value: ContatoType.favorito,
                 child: Text('favorito'),
               ),
             ],
             onChanged: (value) {
-              listaAdicao.tipo = value ?? ContatoType.celular;
+              setState(() {
+                listaAdicao.tipo = value!;
+              });
             },
           )
         ],
@@ -82,7 +115,7 @@ class Cadastro extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          lista.add(listaAdicao);
+          print(listaAdicao);
         },
       ),
     );
