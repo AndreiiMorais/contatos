@@ -54,6 +54,15 @@ class _MyHomePageState extends State<MyHomePage> {
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        child: (Icon(Icons.add)),
+        elevation: 20,
+        onPressed: () {
+          setState(() {
+            Navigator.of(context).pushReplacementNamed('teste');
+          });
+        },
+      ),
     );
   }
 }
