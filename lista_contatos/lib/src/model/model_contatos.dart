@@ -1,9 +1,8 @@
 class ContatosModel {
-  late String nome;
-  late String telefone;
-  late String email;
-  late ContatoType tipo;
-  //late bool check;
+  late String nome = '';
+  late String telefone = '';
+  late String email = '';
+  late ContatoType tipo = ContatoType.celular;
 
   ContatosModel(
       {required this.nome,

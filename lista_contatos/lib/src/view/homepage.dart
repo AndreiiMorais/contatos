@@ -10,17 +10,56 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-late List<ContatosModel> lista = [];
-late List<ContatosModel> listaChamada;
+int index = 0;
 
 class _MyHomePageState extends State<MyHomePage> {
+  Cadastro cadastro = Cadastro();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    cadastro = Cadastro();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contatos'),
+        title: const Text('Contatos'),
       ),
       body: ListView.separated(
+        separatorBuilder: (context, index) => const Divider(
+          thickness: 4,
+        ),
+        itemCount: cadastro.listas.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            onTap: () {},
+            leading: CircleAvatar(
+              child: ContatoHelper.getIconByContatoType(
+                  cadastro.listas[index].tipo),
+              backgroundColor: Colors.blue[400],
+            ),
+            title: Row(
+              children: [
+                Text(cadastro.listas[index].nome),
+                Text(cadastro.listas[index].telefone),
+              ],
+            ),
+            trailing: IconButton(
+              icon: const Icon(Icons.call),
+              color: Colors.green,
+              onPressed: () {},
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+
+/*ListView.separated(
           itemBuilder: (context, index) {
             var listaContatos = lista[index];
             return ListTile(
@@ -56,7 +95,4 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           Navigator.of(context).pushNamed('teste');
         },
-      ),
-    );
-  }
-}
+      ),*/

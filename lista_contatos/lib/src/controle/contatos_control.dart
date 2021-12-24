@@ -1,13 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 
-class Controle {
-  List<ContatosModel> lista = []; //criada lista vazia
-  
-
-  
-}
+class Controle {}
 
 class ContatoHelper {
   static Icon getIconByContatoType(ContatoType tipo) {
@@ -26,3 +20,5 @@ class ContatoHelper {
     }
   }
 }
+
+class CadastroControl {}

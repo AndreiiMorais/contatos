@@ -4,22 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 
 class Cadastro extends StatefulWidget {
-  const Cadastro({Key? key}) : super(key: key);
+  late List<ContatosModel> listas;
+  Cadastro({Key? key, listas}) : super(key: key);
 
   @override
   State<Cadastro> createState() => _CadastroState();
 }
 
 class _CadastroState extends State<Cadastro> {
+  Cadastro cadastros = Cadastro();
   TextEditingController controlNome = TextEditingController();
   TextEditingController controlPhone = TextEditingController();
   TextEditingController controlEmail = TextEditingController();
-  final String teste = '';
-  final String telefone = '';
-  final String email = '';
+  //final String teste = '';
+  //final String telefone = '';
+  //final String email = '';
   late ContatoType tipo = ContatoType.celular;
-
-  List<ContatosModel> lista = [];
 
   ContatosModel listaAdicao = ContatosModel(
       nome: '', email: '', telefone: '', tipo: ContatoType.celular);
@@ -45,6 +45,7 @@ class _CadastroState extends State<Cadastro> {
                   borderSide: BorderSide(color: Colors.blue))),
         ),
         TextField(
+          keyboardType: TextInputType.phone,
           maxLength: 15,
           controller: controlPhone,
           onChanged: (value) {
@@ -58,6 +59,7 @@ class _CadastroState extends State<Cadastro> {
                   borderSide: BorderSide(color: Colors.blue))),
         ),
         TextField(
+          keyboardType: TextInputType.emailAddress,
           maxLength: 100,
           controller: controlEmail,
           onChanged: (value) {
@@ -120,7 +122,7 @@ class _CadastroState extends State<Cadastro> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          lista.add(listaAdicao);
+          cadastros.listas.add(listaAdicao);
           controlNome.clear();
           controlPhone.clear();
           controlEmail.clear();
