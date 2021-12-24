@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
+import 'package:lista_contatos/src/view/homepage.dart';
 
 class Cadastro extends StatefulWidget {
   const Cadastro({Key? key}) : super(key: key);
@@ -15,21 +16,21 @@ class _CadastroState extends State<Cadastro> {
   TextEditingController controlNome = TextEditingController();
   TextEditingController controlPhone = TextEditingController();
   TextEditingController controlEmail = TextEditingController();
+  final String teste = '';
+  final String telefone = '';
+  final String email = '';
+  late ContatoType tipo = ContatoType.celular;
 
   List<ContatosModel> lista = [];
 
-  late ContatosModel listaAdicao = lista[0];
-  late int index;
+  ContatosModel listaAdicao = ContatosModel(
+      nome: '', email: '', telefone: '', tipo: ContatoType.celular);
+  int index = 0;
 
-  ContatoType tipo = ContatoType.celular;
+  //ContatoType tipo = ContatoType.celular;
 
   @override
   Widget build(BuildContext context) {
-    if (lista.isEmpty) {
-      index = 0;
-    } else {
-      index = lista.length;
-    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Novo Contato'),
@@ -40,7 +41,8 @@ class _CadastroState extends State<Cadastro> {
           controller: controlNome,
           onChanged: (value) {
             if (controlNome.text.isNotEmpty) {
-              lista[index].nome = controlNome.text;
+              //index = lista.length;
+              listaAdicao.nome = controlNome.text;
             }
           },
           decoration: const InputDecoration(
@@ -53,7 +55,8 @@ class _CadastroState extends State<Cadastro> {
           controller: controlPhone,
           onChanged: (value) {
             if (controlPhone.text.isNotEmpty) {
-              lista[index].nome = controlPhone.text;
+              //index = lista.length;
+              listaAdicao.telefone = controlPhone.text;
             }
           },
           decoration: const InputDecoration(
@@ -66,7 +69,8 @@ class _CadastroState extends State<Cadastro> {
           controller: controlEmail,
           onChanged: (value) {
             if (controlEmail.text.isNotEmpty) {
-              lista[index].nome = controlEmail.text;
+              //index = lista.length;
+              listaAdicao.email = controlEmail.text;
             }
           },
           decoration: const InputDecoration(
@@ -116,7 +120,8 @@ class _CadastroState extends State<Cadastro> {
           ],
           onChanged: (value) {
             setState(() {
-              lista[index].tipo = value!;
+              index = lista.length;
+              listaAdicao.tipo = value!;
             });
           },
         )
@@ -124,6 +129,10 @@ class _CadastroState extends State<Cadastro> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
+          //index = lista.length;
+          index = 1;
+          lista[index] = listaAdicao;
+
           controlNome.clear();
           controlPhone.clear();
           controlEmail.clear();
