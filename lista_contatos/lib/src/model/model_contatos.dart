@@ -3,7 +3,7 @@ class ContatosModel {
   late String telefone;
   late String email;
   late ContatoType tipo;
-  late bool check;
+  //late bool check;
 
   ContatosModel(
       {required this.nome,

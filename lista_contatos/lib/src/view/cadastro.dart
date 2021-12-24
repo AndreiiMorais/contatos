@@ -1,9 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
-import 'package:lista_contatos/src/view/homepage.dart';
 
 class Cadastro extends StatefulWidget {
   const Cadastro({Key? key}) : super(key: key);
@@ -25,9 +23,6 @@ class _CadastroState extends State<Cadastro> {
 
   ContatosModel listaAdicao = ContatosModel(
       nome: '', email: '', telefone: '', tipo: ContatoType.celular);
-  int index = 0;
-
-  //ContatoType tipo = ContatoType.celular;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +36,6 @@ class _CadastroState extends State<Cadastro> {
           controller: controlNome,
           onChanged: (value) {
             if (controlNome.text.isNotEmpty) {
-              //index = lista.length;
               listaAdicao.nome = controlNome.text;
             }
           },
@@ -55,7 +49,6 @@ class _CadastroState extends State<Cadastro> {
           controller: controlPhone,
           onChanged: (value) {
             if (controlPhone.text.isNotEmpty) {
-              //index = lista.length;
               listaAdicao.telefone = controlPhone.text;
             }
           },
@@ -69,7 +62,6 @@ class _CadastroState extends State<Cadastro> {
           controller: controlEmail,
           onChanged: (value) {
             if (controlEmail.text.isNotEmpty) {
-              //index = lista.length;
               listaAdicao.email = controlEmail.text;
             }
           },
@@ -120,7 +112,6 @@ class _CadastroState extends State<Cadastro> {
           ],
           onChanged: (value) {
             setState(() {
-              index = lista.length;
               listaAdicao.tipo = value!;
             });
           },
@@ -129,10 +120,7 @@ class _CadastroState extends State<Cadastro> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          //index = lista.length;
-          index = 1;
-          lista[index] = listaAdicao;
-
+          lista.add(listaAdicao);
           controlNome.clear();
           controlPhone.clear();
           controlEmail.clear();
