@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 
 class Cadastro extends StatefulWidget {
-  late List<ContatosModel> listas = [];
+  late List<ContatosModel> listas;
   Cadastro({Key? key, listas}) : super(key: key);
 
   @override
