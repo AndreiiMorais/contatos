@@ -19,6 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // TODO: implement initState
     super.initState();
     cadastro = Cadastro();
+    cadastro.listas = cadastro.listas;
   }
 
   @override

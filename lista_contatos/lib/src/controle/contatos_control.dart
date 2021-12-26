@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
+import 'package:lista_contatos/src/view/cadastro.dart';
 
 class Controle {}
 
@@ -21,4 +22,4 @@ class ContatoHelper {
   }
 }
 
-class CadastroControl {}
+
