@@ -4,12 +4,6 @@ class ContatosModel {
   late String email = '';
   late ContatoType tipo = ContatoType.celular;
 
-  ContatosModel(
-      {required this.nome,
-      required this.telefone,
-      required this.email,
-      required this.tipo});
-
   /*static List<ContatosModel> preencheLista() {
     return <ContatosModel>[
 

@@ -18,8 +18,8 @@ class _CadastroState extends State<Cadastro> {
   ContatoType tipo = ContatoType.celular;
   CadastroControl cadastros = CadastroControl();
 
-  ContatosModel listaAdicao = ContatosModel(
-      nome: '', email: '', telefone: '', tipo: ContatoType.celular);
+  //ContatosModel listaAdicao = ContatosModel(
+  // nome: '', email: '', telefone: '', tipo: ContatoType.celular);
 
   @override
   Widget build(BuildContext context) {

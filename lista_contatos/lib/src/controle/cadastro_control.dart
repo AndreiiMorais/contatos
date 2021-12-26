@@ -3,11 +3,12 @@ import 'package:lista_contatos/src/model/model_contatos.dart';
 
 class CadastroControl {
   List<ContatosModel> contatos = [];
+  int index = 0;
   TextEditingController controlName = TextEditingController();
   TextEditingController controlPhone = TextEditingController();
   TextEditingController controlEmail = TextEditingController();
   ContatoType tipo = ContatoType.celular;
-  late ContatosModel lista;
+  late ContatosModel lista = ContatosModel();
 
   CadastroControl({contatos, controlName, controlPhone, controlEmail, tipo});
 
@@ -20,6 +21,7 @@ class CadastroControl {
     controlName.clear();
     controlPhone.clear();
     controlEmail.clear();
+    index = contatos.length;
     return contatos;
   }
 }
