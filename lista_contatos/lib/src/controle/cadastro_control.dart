@@ -24,4 +24,8 @@ class CadastroControl {
     index = contatos.length;
     return contatos;
   }
+
+  getContatos() {
+    return contatos;
+  }
 }
