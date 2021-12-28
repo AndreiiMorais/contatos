@@ -1,48 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:lista_contatos/src/controle/cadastro_control.dart';
-import 'package:lista_contatos/src/controle/contatos_control.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 
-class ContatosView extends StatelessWidget {
-  final CadastroControl cadastrado = CadastroControl();
-  int itemIndex = 0;
-  List<ContatosModel> listaContatos = [];
-  //final int itemIndex = 0;
+class ContatosView extends StatefulWidget {
   ContatosView({
     Key? key,
-  }) : super(key: key) {
-    itemIndex = cadastrado.index;
-    listaContatos = cadastrado.getContatos();
-  }
+  }) : super(key: key);
+
+  @override
+  State<ContatosView> createState() => _ContatosViewState();
+}
+
+class _ContatosViewState extends State<ContatosView> {
+  final CadastroControl cadastrado = CadastroControl();
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: listaContatos.length,
-      separatorBuilder: (context, index) {
-        return const Divider();
-      },
-      itemBuilder: (context, index) {
-        return ListTile(
-          onTap: () {},
-          leading: CircleAvatar(
-            child:
-                ContatoHelper.getIconByContatoType(listaContatos[index].tipo),
-            backgroundColor: Colors.blue[400],
-          ),
-          title: Row(
-            children: [
-              Text(listaContatos[index].nome),
-              Text(listaContatos[index].telefone),
-            ],
-          ),
-          trailing: IconButton(
-            icon: const Icon(Icons.call),
-            color: Colors.green,
-            onPressed: () {},
-          ),
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Contatos'),
+      ),
+      body: ListView.separated(
+        itemCount: cadastrado.contatos.length,
+        separatorBuilder: (context, index) {
+          return const Divider();
+        },
+        itemBuilder: (context, index) {
+          return ListTile(
+            onTap: () {},
+            leading: CircleAvatar(
+              child: ContatoHelper.getIconByContatoType(
+                  cadastrado.contatos[index].tipo),
+              backgroundColor: Colors.blue[400],
+            ),
+            title: Row(
+              children: [
+                Text(cadastrado.contatos[index].nome),
+                Text(cadastrado.contatos[index].telefone),
+              ],
+            ),
+            trailing: IconButton(
+              icon: const Icon(Icons.call),
+              color: Colors.green,
+              onPressed: () {},
+            ),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: (Icon(Icons.add)),
+        elevation: 20,
+        onPressed: () {
+          Navigator.of(context).pushNamed('cadastro');
+        },
+      ),
     );
   }
 }

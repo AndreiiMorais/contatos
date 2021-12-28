@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lista_contatos/src/controle/contatos_control.dart';
-import 'package:lista_contatos/src/view/cadastro.dart';
-import 'package:lista_contatos/src/view/homepage.dart';
+import 'package:lista_contatos/src/view/cadastro_view.dart';
+import 'package:lista_contatos/src/view/contatos_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,8 +19,8 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => MyHomePage(),
-          'teste': (context) => Cadastro(),
+          '/': (context) => ContatosView(),
+          'cadastro': (context) => Cadastro(),
         });
   }
 }
