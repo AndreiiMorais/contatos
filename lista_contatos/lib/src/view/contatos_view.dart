@@ -13,6 +13,7 @@ class ContatosView extends StatefulWidget {
 
 class _ContatosViewState extends State<ContatosView> {
   final CadastroControl cadastrado = CadastroControl();
+  final List<ContatosModel> list = [];
 
   @override
   Widget build(BuildContext context) {
