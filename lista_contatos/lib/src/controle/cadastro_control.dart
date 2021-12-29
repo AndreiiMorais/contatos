@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 
-class CadastroControl extends ChangeNotifier {
+class CadastroControl {
   List<ContatosModel> contatos = [];
+  CadastroProvider providerLista = CadastroProvider();
   int index = 0;
   TextEditingController controlName = TextEditingController();
   TextEditingController controlPhone = TextEditingController();
@@ -19,31 +20,30 @@ class CadastroControl extends ChangeNotifier {
     lista.telefone = controlPhone.text;
     lista.email = controlEmail.text;
     lista.tipo = tipo;
-    contatos.add(lista);
+    providerLista.cadastrar(lista);
     controlName.clear();
     controlPhone.clear();
     controlEmail.clear();
-    index = contatos.length;
     return contatos;
-  }
-
-  List<ContatosModel> _contatosList = [];
-
-  List<ContatosModel> get contatosList => this._contatosList;
-
-  set contatosList(List<ContatosModel> value) {
-    _contatosList = value;
-    notifyListeners();
   }
 }
 
 class CadastroProvider extends ChangeNotifier {
-  List<ContatosModel> _contatosList = [];
+  final List<ContatosModel> _contatosList = [];
+  int _idx = 0;
+
+  cadastrar(ContatosModel lista) {
+    _contatosList.add(lista);
+    _idx = _contatosList.length;
+    notifyListeners();
+  }
 
   List<ContatosModel> get contatosList => this._contatosList;
 
-  set contatosList(List<ContatosModel> value) {
-    _contatosList = value;
-    notifyListeners();
-  }
+  int get idx => this._idx;
+
+  // set contatosList(List<ContatosModel> value) {
+  //   _contatosList = value;
+  //   notifyListeners();
+  // }
 }

@@ -28,7 +28,7 @@ class _CadastroState extends State<Cadastro> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed('/');
           },
         ),
         title: const Text('Novo Contato'),

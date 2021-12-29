@@ -4,7 +4,7 @@ import 'package:lista_contatos/src/model/model_contatos.dart';
 import 'package:provider/provider.dart';
 
 class ContatosView extends StatefulWidget {
-  ContatosView({
+  const ContatosView({
     Key? key,
   }) : super(key: key);
 
@@ -18,19 +18,20 @@ class _ContatosViewState extends State<ContatosView> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<CadastroControl>(
-      create: (context) => CadastroControl(),
+    return ChangeNotifierProvider<CadastroProvider>(
+      create: (context) => CadastroProvider(),
       child: Builder(
         builder: (context) {
           return Scaffold(
             appBar: AppBar(
               title: const Text('Contatos'),
             ),
-            body: Consumer<CadastroControl>(
-              builder: (context, provider, child) {
+            body: Consumer<CadastroProvider>(
+              builder: (_, provider, __) {
                 return ListView.separated(
-                  itemCount: cadastrado.contatos.length,
+                  itemCount: provider.idx,
                   separatorBuilder: (context, index) {
+                    index = provider.idx;
                     return const Divider();
                   },
                   itemBuilder: (context, index) {
@@ -38,13 +39,13 @@ class _ContatosViewState extends State<ContatosView> {
                       onTap: () {},
                       leading: CircleAvatar(
                         child: ContatoHelper.getIconByContatoType(
-                            cadastrado.contatos[index].tipo),
+                            provider.contatosList[index].tipo),
                         backgroundColor: Colors.blue[400],
                       ),
                       title: Row(
                         children: [
-                          Text(cadastrado.contatos[index].nome),
-                          Text(cadastrado.contatos[index].telefone),
+                          Text(provider.contatosList[index].nome),
+                          Text(provider.contatosList[index].telefone),
                         ],
                       ),
                       trailing: IconButton(
@@ -58,10 +59,11 @@ class _ContatosViewState extends State<ContatosView> {
               },
             ),
             floatingActionButton: FloatingActionButton(
+              // ignore: prefer_const_constructors
               child: (Icon(Icons.add)),
               elevation: 20,
               onPressed: () {
-                Navigator.of(context).pushNamed('cadastro');
+                Navigator.of(context).pushReplacementNamed('cadastro');
               },
             ),
           );
