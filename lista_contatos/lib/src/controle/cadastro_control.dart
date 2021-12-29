@@ -1,9 +1,10 @@
+// ignore_for_file: unnecessary_this
+
 import 'package:flutter/material.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 
-class CadastroControl {
+class CadastroControl extends ChangeNotifier {
   List<ContatosModel> contatos = [];
-  var map = <String, dynamic>{};
   int index = 0;
   TextEditingController controlName = TextEditingController();
   TextEditingController controlPhone = TextEditingController();
@@ -23,32 +24,26 @@ class CadastroControl {
     controlPhone.clear();
     controlEmail.clear();
     index = contatos.length;
-    toMap();
     return contatos;
   }
 
-  getContatos() {
-    return contatos;
+  List<ContatosModel> _contatosList = [];
+
+  List<ContatosModel> get contatosList => this._contatosList;
+
+  set contatosList(List<ContatosModel> value) {
+    _contatosList = value;
+    notifyListeners();
   }
+}
 
-  Map<String, dynamic> toMap() {
-    index = contatos.length;
-    //converte um obg para um mapa
+class CadastroProvider extends ChangeNotifier {
+  List<ContatosModel> _contatosList = [];
 
-    map['index'] = index;
-    map['nome'] = contatos[index].nome;
-    map['telefone'] = contatos[index].telefone;
-    map['email'] = contatos[index].email;
-    map['tipo'] = contatos[index].tipo;
-    return map;
-  }
+  List<ContatosModel> get contatosList => this._contatosList;
 
-  CadastroControl.fromMapObject(Map<String, dynamic> map) {
-    //pega um mapa e converte para um obj.
-    index = map.length;
-    contatos[index].nome = map['nome'];
-    contatos[index].telefone = map['telefone'];
-    contatos[index].email = map['email'];
-    contatos[index].tipo = map['tipo'];
+  set contatosList(List<ContatosModel> value) {
+    _contatosList = value;
+    notifyListeners();
   }
 }
