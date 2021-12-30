@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:lista_contatos/src/controle/cadastro_control.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 
 class Cadastro extends StatefulWidget {
@@ -15,10 +14,8 @@ class _CadastroState extends State<Cadastro> {
   final TextEditingController name = TextEditingController();
   final TextEditingController phone = TextEditingController();
   final TextEditingController email = TextEditingController();
-  CadastroControl cadastro = CadastroControl();
   ContatoType tipo = ContatoType.celular;
   ContatosModel lista = ContatosModel();
-
 
   @override
   Widget build(BuildContext context) {
@@ -114,16 +111,18 @@ class _CadastroState extends State<Cadastro> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          args = cadastrar(args);
+          cadastrar(args);
         },
       ),
     );
   }
 
   cadastrar(List<ContatosModel> arguments) {
+    lista = ContatosModel();
     lista.nome = name.text;
     lista.telefone = phone.text;
     lista.email = email.text;
+    lista.tipo = tipo;
 
     arguments.add(lista);
     name.clear();

@@ -23,35 +23,31 @@ class _ContatosViewState extends State<ContatosView> {
       appBar: AppBar(
         title: const Text('Contatos'),
       ),
-      body: ListView.separated(
+      body: ListView.builder(
         itemCount: exibir.length,
-        separatorBuilder: (context, index) {
-          return const Divider();
-        },
-        itemBuilder: (context, index) {
-          // index = (exibir.length - 1);
-          return ListTile(
-            onTap: () {},
-            leading: CircleAvatar(
-              child: ContatoHelper.getIconByContatoType(exibir[index].tipo),
-              backgroundColor: Colors.blue[400],
-            ),
-            title: Text(exibir[index].nome),
-            subtitle: Text(exibir[index].telefone),
-            trailing: IconButton(
-              icon: const Icon(Icons.call),
-              color: Colors.green,
-              onPressed: () {},
-            ),
-          );
-        },
+        // separatorBuilder: (_, index) => const Divider(),
+        itemBuilder: (context, index) => ListTile(
+          onTap: () {},
+          leading: CircleAvatar(
+            child: ContatoHelper.getIconByContatoType(exibir[index].tipo),
+            backgroundColor: Colors.blue[400],
+          ),
+          title: Text(exibir[index].nome),
+          subtitle: Text(exibir[index].telefone),
+          trailing: IconButton(
+            icon: const Icon(Icons.call),
+            color: Colors.green,
+            onPressed: () {},
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         // ignore: prefer_const_constructors
         child: (Icon(Icons.add)),
         elevation: 20,
         onPressed: () {
-          Navigator.of(context).pushReplacementNamed('cadastro', arguments: exibir);
+          Navigator.of(context)
+              .pushReplacementNamed('cadastro', arguments: exibir);
         },
       ),
     );
