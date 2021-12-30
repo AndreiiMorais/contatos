@@ -127,7 +127,7 @@ class _CadastroState extends State<Cadastro> {
     lista = ContatosModel();
     lista.nome = name.text;
     lista.telefone = phone.text;
-    lista.email = email.text.toLowerCase();
+    lista.email = email.text;
     lista.tipo = tipo;
 
     arguments.add(lista);
