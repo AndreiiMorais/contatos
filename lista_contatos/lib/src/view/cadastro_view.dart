@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 
 class Cadastro extends StatefulWidget {
@@ -33,6 +34,7 @@ class _CadastroState extends State<Cadastro> {
       ),
       body: ListView(children: [
         TextField(
+          textCapitalization: TextCapitalization.words,
           maxLength: 100,
           controller: name,
           onChanged: (value) {},
@@ -42,16 +44,20 @@ class _CadastroState extends State<Cadastro> {
                   borderSide: BorderSide(color: Colors.blue))),
         ),
         TextField(
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           keyboardType: TextInputType.phone,
           maxLength: 15,
           controller: phone,
           onChanged: (value) {},
           decoration: const InputDecoration(
-              label: Text('Telefone:'),
+              label: Text(
+                'Telefone:',
+              ),
               enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.blue))),
         ),
         TextField(
+          textCapitalization: TextCapitalization.none,
           keyboardType: TextInputType.emailAddress,
           maxLength: 100,
           controller: email,
@@ -121,7 +127,7 @@ class _CadastroState extends State<Cadastro> {
     lista = ContatosModel();
     lista.nome = name.text;
     lista.telefone = phone.text;
-    lista.email = email.text;
+    lista.email = email.text.toLowerCase();
     lista.tipo = tipo;
 
     arguments.add(lista);
