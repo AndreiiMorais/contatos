@@ -15,20 +15,21 @@ class _CadastroState extends State<Cadastro> {
   final TextEditingController name = TextEditingController();
   final TextEditingController phone = TextEditingController();
   final TextEditingController email = TextEditingController();
+  CadastroControl cadastro = CadastroControl();
   ContatoType tipo = ContatoType.celular;
-  CadastroControl cadastros = CadastroControl();
+  ContatosModel lista = ContatosModel();
 
-  //ContatosModel listaAdicao = ContatosModel(
-  // nome: '', email: '', telefone: '', tipo: ContatoType.celular);
 
   @override
   Widget build(BuildContext context) {
+    List<ContatosModel> args =
+        ModalRoute.of(context)!.settings.arguments as List<ContatosModel>;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed('/');
+            Navigator.of(context).pushReplacementNamed('/', arguments: args);
           },
         ),
         title: const Text('Novo Contato'),
@@ -36,7 +37,7 @@ class _CadastroState extends State<Cadastro> {
       body: ListView(children: [
         TextField(
           maxLength: 100,
-          controller: cadastros.controlName,
+          controller: name,
           onChanged: (value) {},
           decoration: const InputDecoration(
               label: Text('Nome:'),
@@ -46,7 +47,7 @@ class _CadastroState extends State<Cadastro> {
         TextField(
           keyboardType: TextInputType.phone,
           maxLength: 15,
-          controller: cadastros.controlPhone,
+          controller: phone,
           onChanged: (value) {},
           decoration: const InputDecoration(
               label: Text('Telefone:'),
@@ -56,7 +57,7 @@ class _CadastroState extends State<Cadastro> {
         TextField(
           keyboardType: TextInputType.emailAddress,
           maxLength: 100,
-          controller: cadastros.controlEmail,
+          controller: email,
           onChanged: (value) {},
           decoration: const InputDecoration(
               label: Text('Email:'),
@@ -64,12 +65,12 @@ class _CadastroState extends State<Cadastro> {
                   borderSide: BorderSide(color: Colors.blue))),
         ),
         DropdownButton<ContatoType>(
-          value: cadastros.tipo,
+          value: tipo,
           items: [
             DropdownMenuItem(
               onTap: () {
                 setState(() {
-                  cadastros.tipo = ContatoType.celular;
+                  tipo = ContatoType.celular;
                 });
               },
               value: ContatoType.celular,
@@ -78,7 +79,7 @@ class _CadastroState extends State<Cadastro> {
             DropdownMenuItem(
               onTap: () {
                 setState(() {
-                  cadastros.tipo = ContatoType.casa;
+                  tipo = ContatoType.casa;
                 });
               },
               value: ContatoType.casa,
@@ -87,7 +88,7 @@ class _CadastroState extends State<Cadastro> {
             DropdownMenuItem(
               onTap: () {
                 setState(() {
-                  cadastros.tipo = ContatoType.trabalho;
+                  tipo = ContatoType.trabalho;
                 });
               },
               value: ContatoType.trabalho,
@@ -96,7 +97,7 @@ class _CadastroState extends State<Cadastro> {
             DropdownMenuItem(
               onTap: () {
                 setState(() {
-                  cadastros.tipo = ContatoType.favorito;
+                  tipo = ContatoType.favorito;
                 });
               },
               value: ContatoType.favorito,
@@ -105,7 +106,7 @@ class _CadastroState extends State<Cadastro> {
           ],
           onChanged: (value) {
             setState(() {
-              cadastros.tipo = value!;
+              tipo = value!;
             });
           },
         )
@@ -113,9 +114,21 @@ class _CadastroState extends State<Cadastro> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          cadastros.cadastrar();
+          args = cadastrar(args);
         },
       ),
     );
+  }
+
+  cadastrar(List<ContatosModel> arguments) {
+    lista.nome = name.text;
+    lista.telefone = phone.text;
+    lista.email = email.text;
+
+    arguments.add(lista);
+    name.clear();
+    phone.clear();
+    email.clear();
+    return arguments;
   }
 }
