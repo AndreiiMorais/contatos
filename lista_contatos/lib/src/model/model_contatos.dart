@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class ContatosModel {
   late int id;
   late String nome;
@@ -8,22 +7,23 @@ class ContatosModel {
   late String email;
   late ContatoType tipo = ContatoType.celular;
 
-   ContatosModel({this.id = 0,
-  this.nome = '', this.telefone = '', this.email = ''})
+  ContatosModel(
+      {this.id = 0, this.nome = '', this.telefone = '', this.email = ''});
 
-
-
-  Map<String, dynamic> toMap(){
-    return{
-      'id' : id,
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
       'nome': nome,
       'telefone': telefone,
       'email': email,
-      'tipo' : tipo,
+      'tipo': tipo,
     };
   }
 
- 
+  @override
+  String toString() {
+    return 'ContatoModel{id: $id, nome: $nome, telefone: $telefone, email: $email, tipo: $tipo}';
+  }
 }
 
 enum ContatoType { celular, trabalho, favorito, casa }
@@ -45,5 +45,3 @@ class ContatoHelper {
     }
   }
 }
-
-
