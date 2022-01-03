@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ContatosModel {
+<<<<<<< HEAD
   late int id;
   late String nome;
   late String telefone;
@@ -24,6 +25,14 @@ class ContatosModel {
   String toString() {
     return 'ContatoModel{id: $id, nome: $nome, telefone: $telefone, email: $email, tipo: $tipo}';
   }
+=======
+  late String nome = '';
+  late String telefone = '';
+  late String email = '';
+  late ContatoType tipo = ContatoType.celular;
+
+ 
+>>>>>>> parent of 6cf7ae1 (updates and bug on model_contatos)
 }
 
 enum ContatoType { celular, trabalho, favorito, casa }
