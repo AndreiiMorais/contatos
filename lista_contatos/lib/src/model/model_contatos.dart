@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
 
 class ContatosModel {
-  late String nome = '';
-  late String telefone = '';
-  late String email = '';
+  late int id;
+  late String nome;
+  late String telefone;
+  late String email;
   late ContatoType tipo = ContatoType.celular;
+
+   ContatosModel({this.id = 0,
+  this.nome = '', this.telefone = '', this.email = ''})
+
+
+
+  Map<String, dynamic> toMap(){
+    return{
+      'id' : id,
+      'nome': nome,
+      'telefone': telefone,
+      'email': email,
+      'tipo' : tipo,
+    };
+  }
 
  
 }
