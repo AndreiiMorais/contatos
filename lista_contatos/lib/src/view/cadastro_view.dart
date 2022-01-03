@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 
 class Cadastro extends StatefulWidget {
-  const Cadastro({Key? key, listas}) : super(key: key);
+  Cadastro({Key? key, listas}) : super(key: key) {}
 
   @override
   State<Cadastro> createState() => _CadastroState();
