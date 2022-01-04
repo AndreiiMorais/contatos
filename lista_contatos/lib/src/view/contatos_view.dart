@@ -27,7 +27,7 @@ class _ContatosViewState extends State<ContatosView> {
     //   exibir =
     //       ModalRoute.of(context)?.settings.arguments as List<ContatosModel>;
     // }
-    exibir.map((e) => repository.getContatos()).toList();
+    exibir = repository.getContatos();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Contatos'),
