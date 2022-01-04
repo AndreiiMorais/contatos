@@ -8,7 +8,7 @@ class ContatosModel {
   late ContatoType tipo = ContatoType.celular;
 
   ContatosModel(
-      {this.id = 0, this.nome = '', this.telefone = '', this.email = ''});
+      {this.id = 0, this.nome = '', this.telefone = '', this.email = '', tipo});
 
   Map<String, dynamic> toMap() {
     return {
