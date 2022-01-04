@@ -23,11 +23,13 @@ class _ContatosViewState extends State<ContatosView> {
 
   @override
   Widget build(BuildContext context) {
+    // exibir = repository.getContatos();
+    // print();
     // if (ModalRoute.of(context)!.settings.arguments != null) {
     //   exibir =
     //       ModalRoute.of(context)?.settings.arguments as List<ContatosModel>;
     // }
-    exibir = repository.getContatos();
+    // exibir.map((e) => repository.getContatos()).toList();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Contatos'),

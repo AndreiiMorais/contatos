@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/services.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 import 'package:lista_contatos/src/settings.dart';
@@ -52,7 +54,7 @@ class ContatosRepository {
     }
   }
 
-  Future<List<ContatosModel>> Buscar(String term) async {
+  Future<List<ContatosModel>> buscar(String term) async {
     try {
       final Database db = await _getDatabase();
       final List<Map<String, dynamic>> maps = await db.query(
@@ -98,7 +100,7 @@ class ContatosRepository {
       );
     } catch (ex) {
       print(ex);
-      return ContatosModel();
+      return ContatosModel(id: 0, nome: '', telefone: '', email: '');
     }
   }
 

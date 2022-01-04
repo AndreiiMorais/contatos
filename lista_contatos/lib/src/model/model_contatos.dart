@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
 class ContatosModel {
-  late int id;
-  late String nome;
-  late String telefone;
-  late String email;
-  late ContatoType tipo = ContatoType.celular;
+  int id = 0;
+  String nome = '';
+  String telefone = '';
+  String email = '';
+  ContatoType tipo = ContatoType.celular;
 
   ContatosModel(
-      {this.id = 0, this.nome = '', this.telefone = '', this.email = '', tipo});
+      {required this.id,
+      required this.nome,
+      required this.telefone,
+      required this.email,
+      tipo});
 
   Map<String, dynamic> toMap() {
     return {
@@ -16,7 +20,7 @@ class ContatosModel {
       'nome': nome,
       'telefone': telefone,
       'email': email,
-      'tipo': tipo,
+      // 'tipo': tipo,
     };
   }
 

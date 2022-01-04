@@ -17,7 +17,7 @@ class _CadastroState extends State<Cadastro> {
   final TextEditingController phone = TextEditingController();
   final TextEditingController email = TextEditingController();
   ContatoType tipo = ContatoType.celular;
-  ContatosModel lista = ContatosModel();
+  late ContatosModel lista;
   ContatosRepository repository = ContatosRepository();
 
   @override
@@ -119,24 +119,21 @@ class _CadastroState extends State<Cadastro> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          cadastrar(args);
+          cadastrar(args.length);
         },
       ),
     );
   }
 
-  cadastrar(List<ContatosModel> arguments) {
-    lista = ContatosModel();
-    lista.nome = name.text;
-    lista.telefone = phone.text;
-    lista.email = email.text;
-    lista.tipo = tipo;
+  cadastrar(int idx) {
+    lista = ContatosModel(
+        id: idx, nome: name.text, telefone: phone.text, email: email.text);
 
-    arguments.add(lista);
+    repository.inserir(lista);
+    // arguments.add(lista);
     name.clear();
     phone.clear();
     email.clear();
-    repository.inserir(lista);
-    return arguments;
+    return repository.getContatos();
   }
 }
