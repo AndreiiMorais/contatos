@@ -18,6 +18,8 @@ class _CadastroState extends State<Cadastro> {
   ContatoType tipo = ContatoType.celular;
   ContatosModel lista = ContatosModel();
 
+  
+
   @override
   Widget build(BuildContext context) {
     List<ContatosModel> args =

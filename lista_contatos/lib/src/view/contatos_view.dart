@@ -12,6 +12,8 @@ class ContatosView extends StatefulWidget {
 
 class _ContatosViewState extends State<ContatosView> {
   List<ContatosModel> exibir = [];
+
+  
   @override
   Widget build(BuildContext context) {
     if (ModalRoute.of(context)!.settings.arguments != null) {
