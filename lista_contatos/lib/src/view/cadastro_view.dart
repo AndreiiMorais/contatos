@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lista_contatos/repositories/contatos_repository.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 
 class Cadastro extends StatefulWidget {
@@ -17,8 +18,7 @@ class _CadastroState extends State<Cadastro> {
   final TextEditingController email = TextEditingController();
   ContatoType tipo = ContatoType.celular;
   ContatosModel lista = ContatosModel();
-
-  
+  ContatosRepository repository = ContatosRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -136,6 +136,7 @@ class _CadastroState extends State<Cadastro> {
     name.clear();
     phone.clear();
     email.clear();
+    repository.inserir(lista);
     return arguments;
   }
 }

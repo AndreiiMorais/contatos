@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lista_contatos/repositories/contatos_repository.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 
 class ContatosView extends StatefulWidget {
@@ -12,15 +13,21 @@ class ContatosView extends StatefulWidget {
 
 class _ContatosViewState extends State<ContatosView> {
   List<ContatosModel> exibir = [];
+  ContatosRepository repository = ContatosRepository();
 
-  
+  @override
+  void initState() {
+    super.initState();
+    repository.getContatos();
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (ModalRoute.of(context)!.settings.arguments != null) {
-      exibir =
-          ModalRoute.of(context)?.settings.arguments as List<ContatosModel>;
-    }
-
+    // if (ModalRoute.of(context)!.settings.arguments != null) {
+    //   exibir =
+    //       ModalRoute.of(context)?.settings.arguments as List<ContatosModel>;
+    // }
+    exibir.map((e) => repository.getContatos()).toList();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Contatos'),
