@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lista_contatos/src/view/cadastro_view.dart';
 import 'package:lista_contatos/src/view/contatos_view.dart';
+import 'package:lista_contatos/src/view/edit_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => ContatosView(),
           'cadastro': (context) => Cadastro(),
+          '/edit': (context) => EditPage(),
         });
   }
 }

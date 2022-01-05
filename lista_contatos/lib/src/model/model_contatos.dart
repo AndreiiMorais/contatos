@@ -1,32 +1,53 @@
+// ignore_for_file: unnecessary_getters_setters
+
 import 'package:flutter/material.dart';
 
 class ContatosModel {
-  int id = 0;
-  String nome = '';
-  String telefone = '';
-  String email = '';
-  ContatoType tipo = ContatoType.celular;
+  int? _id;
+  String _nome = '';
+  String _telefone = '';
+  String _email = '';
+  int? get id => _id;
 
   ContatosModel(
-      {required this.id,
-      required this.nome,
-      required this.telefone,
-      required this.email,
-      tipo});
+    this._nome,
+    this._telefone,
+    this._email,
+    tipo,
+  );
+
+  set id(int? value) => _id = value;
+
+  get nome => _nome;
+
+  set nome(value) => _nome = value;
+
+  get telefone => _telefone;
+
+  set telefone(value) => _telefone = value;
+
+  get email => _email;
+
+  set email(value) => _email = value;
+  // ContatoType tipo = ContatoType.celular;
+
+  
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'nome': nome,
-      'telefone': telefone,
-      'email': email,
+      'id': _id,
+      'nome': _nome,
+      'telefone': _telefone,
+      'email': _email,
       // 'tipo': tipo,
     };
   }
 
-  @override
-  String toString() {
-    return 'ContatoModel{id: $id, nome: $nome, telefone: $telefone, email: $email, tipo: $tipo}';
+  ContatosModel.fromMap(Map<String, dynamic> map) {
+    _id = map['id'];
+    _nome = map['nome'];
+    _telefone = map['telefone'];
+    _email = map['email'];
   }
 }
 

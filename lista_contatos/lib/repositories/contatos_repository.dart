@@ -1,112 +1,92 @@
 // ignore_for_file: avoid_print
 
-import 'package:flutter/services.dart';
+import 'dart:io';
+
 import 'package:lista_contatos/src/model/model_contatos.dart';
 import 'package:lista_contatos/src/settings.dart';
-import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ContatosRepository {
-  Future<Database> _getDatabase() async {
-    return openDatabase(
-      join(await getDatabasesPath(), DATABASE_NAME),
-      onCreate: (db, version) {
-        return db.execute(CREATE_CONTATOS_TABLE_SCRIPT);
-      },
-      version: 1,
-    );
+  //singleton
+  static ContatosRepository? _dataBaseHelper;
+  static Database? _database;
+
+  ContatosRepository._createInstance();
+
+  factory ContatosRepository() {
+    // ignore: prefer_conditional_assignment
+    if (_dataBaseHelper == null) {
+      _dataBaseHelper = ContatosRepository._createInstance();
+    }
+    return _dataBaseHelper!;
   }
 
-  Future inserir(ContatosModel model) async {
-    try {
-      final Database db = await _getDatabase();
+  Future<Database> get database async {
+    // ignore: prefer_conditional_assignment
+    if (_database == null) {
+      _database = await inicializaDB();
+    }
+    return _database!;
+  }
 
-      await db.insert(
+  Future<Database> inicializaDB() async {
+    Directory directory = await getApplicationDocumentsDirectory();
+    String caminho = directory.path + DATABASE_NAME;
+
+    var bancodedados =
+        await openDatabase(caminho, version: 1, onCreate: (db, version) {
+      return db.execute(CREATE_CONTATOS_TABLE_SCRIPT);
+    });
+    return bancodedados;
+  }
+
+  Future<int?> inserir(ContatosModel model) async {
+    try {
+      final Database db = await database;
+
+      var resultado = await db.insert(
         TABLE_NAME,
         model.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
+      return resultado;
     } catch (ex) {
       print(ex);
-      return;
+      return null;
     }
   }
 
-  Future<List<ContatosModel>> getContatos() async {
+  getContatos() async {
     try {
-      final Database db = await _getDatabase();
-      final List<Map<String, dynamic>> maps = await db.query(TABLE_NAME);
-      return List.generate(
-        maps.length,
-        (i) {
-          return ContatosModel(
-            id: maps[i]['id'],
-            nome: maps[i]['nome'],
-            telefone: maps[i]['telefone'],
-            email: maps[i]['email'],
-            tipo: maps[i]['tipo'],
-          );
-        },
-      );
+      final Database db = await database;
+      String sql = "SELECT * FROM $TABLE_NAME";
+      List listaContatos = await db.rawQuery(sql);
+      return listaContatos;
     } catch (ex) {
       print(ex);
       return <ContatosModel>[];
     }
   }
 
-  Future<List<ContatosModel>> buscar(String term) async {
+  getContato(int id) async {
     try {
-      final Database db = await _getDatabase();
-      final List<Map<String, dynamic>> maps = await db.query(
-        TABLE_NAME,
-        where: 'name LIKE ?',
-        whereArgs: [
-          '%$term%',
-        ],
-      );
-      return List.generate(
-        maps.length,
-        (i) {
-          return ContatosModel(
-            id: maps[i]['id'],
-            nome: maps[i]['nome'],
-            telefone: maps[i]['telefone'],
-            email: maps[i]['email'],
-            tipo: maps[i]['tipo'],
-          );
-        },
-      );
-    } catch (ex) {
-      print(ex);
-      return <ContatosModel>[];
-    }
-  }
-
-  Future<ContatosModel> getContato(int id) async {
-    try {
-      final Database db = await _getDatabase();
-      final List<Map<String, dynamic>> maps = await db.query(
+      final Database db = await database;
+      List resultado = await db.query(
         TABLE_NAME,
         where: 'id = ?',
         whereArgs: [id],
       );
-
-      return ContatosModel(
-        id: maps[0]['id'],
-        nome: maps[0]['nome'],
-        telefone: maps[0]['telefone'],
-        email: maps[0]['email'],
-        tipo: maps[0]['tipo'],
-      );
+      return resultado;
     } catch (ex) {
       print(ex);
-      return ContatosModel(id: 0, nome: '', telefone: '', email: '');
+      return <ContatosModel>[];
     }
   }
 
-  Future update(ContatosModel model) async {
+  update(ContatosModel model) async {
     try {
-      final Database db = await _getDatabase();
+      final Database db = await database;
 
       await db.update(
         TABLE_NAME,
@@ -120,9 +100,9 @@ class ContatosRepository {
     }
   }
 
-  Future delete(int id) async {
+  delete(int id) async {
     try {
-      final Database db = await _getDatabase();
+      final Database db = await database;
       await db.delete(
         TABLE_NAME,
         where: "id = ?",

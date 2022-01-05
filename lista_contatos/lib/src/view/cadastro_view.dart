@@ -2,34 +2,32 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lista_contatos/repositories/contatos_repository.dart';
+import 'package:lista_contatos/src/controle/db_Control.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
+import 'package:lista_contatos/src/settings.dart';
 
 class Cadastro extends StatefulWidget {
-  Cadastro({Key? key, listas}) : super(key: key) {}
+  const Cadastro({Key? key}) : super(key: key);
 
   @override
   State<Cadastro> createState() => _CadastroState();
 }
 
 class _CadastroState extends State<Cadastro> {
-  final TextEditingController name = TextEditingController();
-  final TextEditingController phone = TextEditingController();
-  final TextEditingController email = TextEditingController();
   ContatoType tipo = ContatoType.celular;
-  late ContatosModel lista;
-  ContatosRepository repository = ContatosRepository();
+  ContatosModel lista = ContatosModel('', '', '', '');
+  DbControl controle = DbControl();
 
   @override
   Widget build(BuildContext context) {
-    List<ContatosModel> args =
-        ModalRoute.of(context)!.settings.arguments as List<ContatosModel>;
+    // List<ContatosModel> args =
+    //     ModalRoute.of(context)!.settings.arguments as List<ContatosModel>;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed('/', arguments: args);
+            Navigator.of(context).pushReplacementNamed('/');
           },
         ),
         title: const Text('Novo Contato'),
@@ -41,9 +39,11 @@ class _CadastroState extends State<Cadastro> {
           controller: name,
           onChanged: (value) {},
           decoration: const InputDecoration(
-              label: Text('Nome:'),
-              enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue))),
+            label: Text('Nome:'),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.blue),
+            ),
+          ),
         ),
         TextField(
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -52,11 +52,13 @@ class _CadastroState extends State<Cadastro> {
           controller: phone,
           onChanged: (value) {},
           decoration: const InputDecoration(
-              label: Text(
-                'Telefone:',
-              ),
-              enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue))),
+            label: Text(
+              'Telefone:',
+            ),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.blue),
+            ),
+          ),
         ),
         TextField(
           textCapitalization: TextCapitalization.none,
@@ -65,9 +67,11 @@ class _CadastroState extends State<Cadastro> {
           controller: email,
           onChanged: (value) {},
           decoration: const InputDecoration(
-              label: Text('Email:'),
-              enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue))),
+            label: Text('Email:'),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.blue),
+            ),
+          ),
         ),
         DropdownButton<ContatoType>(
           value: tipo,
@@ -119,21 +123,15 @@ class _CadastroState extends State<Cadastro> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          cadastrar(args.length);
+          lista.nome = name.text;
+          lista.telefone = phone.text;
+          lista.email = email.text;
+          controle.inserir(contatoSelecionado: lista);
+          name.clear();
+          phone.clear();
+          email.clear();
         },
       ),
     );
-  }
-
-  cadastrar(int idx) {
-    lista = ContatosModel(
-        id: idx, nome: name.text, telefone: phone.text, email: email.text);
-
-    repository.inserir(lista);
-    // arguments.add(lista);
-    name.clear();
-    phone.clear();
-    email.clear();
-    return repository.getContatos();
   }
 }

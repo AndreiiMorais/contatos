@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lista_contatos/repositories/contatos_repository.dart';
+import 'package:lista_contatos/src/controle/db_Control.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
+import 'package:lista_contatos/src/view/edit_page.dart';
 
 class ContatosView extends StatefulWidget {
   const ContatosView({
@@ -13,23 +15,36 @@ class ContatosView extends StatefulWidget {
 
 class _ContatosViewState extends State<ContatosView> {
   List<ContatosModel> exibir = [];
-  ContatosRepository repository = ContatosRepository();
+  DbControl db = DbControl();
+  ContatosView contatos = const ContatosView();
+  final ContatosRepository _db = ContatosRepository();
+
+  void listarContatos() async {
+    List contatosListados = await _db.getContatos();
+
+    List<ContatosModel> tempList = <ContatosModel>[];
+
+    for (var item in contatosListados) {
+      ContatosModel c = ContatosModel.fromMap(item);
+      tempList.add(c);
+    }
+    setState(() {
+      exibir = tempList;
+      tempList = [];
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    repository.getContatos();
+    setState(() {
+      listarContatos();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // exibir = repository.getContatos();
-    // print();
-    // if (ModalRoute.of(context)!.settings.arguments != null) {
-    //   exibir =
-    //       ModalRoute.of(context)?.settings.arguments as List<ContatosModel>;
-    // }
-    // exibir.map((e) => repository.getContatos()).toList();
+    listarContatos();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Contatos'),
@@ -38,9 +53,12 @@ class _ContatosViewState extends State<ContatosView> {
         itemCount: exibir.length,
         // separatorBuilder: (_, index) => const Divider(),
         itemBuilder: (context, index) => ListTile(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context)
+                .pushReplacementNamed('/edit', arguments: exibir[index]);
+          },
           leading: CircleAvatar(
-            child: ContatoHelper.getIconByContatoType(exibir[index].tipo),
+            child: const Icon(Icons.people),
             backgroundColor: Colors.blue[400],
           ),
           title: Text(exibir[index].nome),
@@ -57,8 +75,7 @@ class _ContatosViewState extends State<ContatosView> {
         child: (Icon(Icons.add)),
         elevation: 20,
         onPressed: () {
-          Navigator.of(context)
-              .pushReplacementNamed('cadastro', arguments: exibir);
+          Navigator.of(context).pushNamed('cadastro');
         },
       ),
     );
