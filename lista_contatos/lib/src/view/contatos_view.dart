@@ -54,8 +54,7 @@ class _ContatosViewState extends State<ContatosView> {
         // separatorBuilder: (_, index) => const Divider(),
         itemBuilder: (context, index) => ListTile(
           onTap: () {
-            Navigator.of(context)
-                .pushReplacementNamed('/edit', arguments: exibir[index]);
+            Navigator.of(context).pushNamed('/edit', arguments: exibir[index]);
           },
           leading: CircleAvatar(
             child: const Icon(Icons.people),
@@ -75,7 +74,7 @@ class _ContatosViewState extends State<ContatosView> {
         child: (Icon(Icons.add)),
         elevation: 20,
         onPressed: () {
-          Navigator.of(context).pushNamed('cadastro');
+          Navigator.of(context).pushReplacementNamed('cadastro');
         },
       ),
     );

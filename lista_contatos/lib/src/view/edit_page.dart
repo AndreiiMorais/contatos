@@ -10,7 +10,7 @@ class EditPage extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as ContatosModel;
     return Scaffold(
       appBar: AppBar(
-        title: Text(args.nome),
+        title: Text(args.nome.toUpperCase()),
       ),
       body: Column(
         children: [
@@ -27,7 +27,9 @@ class EditPage extends StatelessWidget {
               ),
               Text(
                 args.nome,
-                style: const TextStyle(fontSize: 25),
+                style: const TextStyle(
+                  fontSize: 25,
+                ),
               ),
             ],
           ),
