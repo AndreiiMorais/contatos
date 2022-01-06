@@ -121,7 +121,7 @@ class _CadastroState extends State<Cadastro> {
               tipo = value!;
             });
           },
-        )
+        ),
       ]),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
