@@ -3,6 +3,7 @@ import 'package:lista_contatos/src/controle/db_Control.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 import 'package:lista_contatos/widgets/confirmacao_alertbox.dart';
 import 'package:lista_contatos/widgets/custom_editPage_button.dart';
+import 'package:lista_contatos/widgets/edicao_alerbox.dart';
 
 class EditPage extends StatefulWidget {
   const EditPage({Key? key}) : super(key: key);
@@ -32,7 +33,7 @@ class _EditPageState extends State<EditPage> {
             ),
             Row(
               children: [
-                const Icon(Icons.people),
+                ContatoHelper.getIconByContatoType(args.tipoDb),
                 const SizedBox(
                   width: 10,
                 ),
@@ -101,7 +102,11 @@ class _EditPageState extends State<EditPage> {
                   width: 10,
                 ),
                 CustomEditPageButton(
-                  customOnPressed: () {},
+                  customOnPressed: () {
+                    setState(() {
+                      editar(args);
+                    });
+                  },
                   customIcon: Icons.edit,
                   iconColor: Colors.red,
                 ),
@@ -153,6 +158,17 @@ class _EditPageState extends State<EditPage> {
       context: context,
       builder: (context) {
         return ConfirmacaoAlerBox(id: id);
+      },
+    );
+  }
+
+  void editar(ContatosModel contato) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return EdicaoAlerBox(
+          contato: contato,
+        );
       },
     );
   }

@@ -31,6 +31,7 @@ class _ContatosViewState extends State<ContatosView> {
     setState(() {
       exibir = tempList;
       tempList = [];
+      exibir.sort((a, b) => a.nome.compareTo(b.nome));
     });
   }
 
@@ -51,13 +52,12 @@ class _ContatosViewState extends State<ContatosView> {
       ),
       body: ListView.builder(
         itemCount: exibir.length,
-        // separatorBuilder: (_, index) => const Divider(),
         itemBuilder: (context, index) => ListTile(
           onTap: () {
             Navigator.of(context).pushNamed('/edit', arguments: exibir[index]);
           },
           leading: CircleAvatar(
-            child: const Icon(Icons.people),
+            child: ContatoHelper.getIconByContatoType(exibir[index].tipoDb),
             backgroundColor: Colors.blue[400],
           ),
           title: Text(exibir[index].nome),

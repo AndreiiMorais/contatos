@@ -16,7 +16,7 @@ class ConfirmacaoAlerBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Editar Contato'),
+      title: const Text('Excluir Contato'),
       content: const Text('Você tem certeza?'),
       actions: [
         ElevatedButton(

@@ -7,13 +7,15 @@ class ContatosModel {
   String _nome = '';
   String _telefone = '';
   String _email = '';
+  String _tipoDb = 'telefone';
+
   int? get id => _id;
 
   ContatosModel(
     this._nome,
     this._telefone,
     this._email,
-    tipo,
+    this._tipoDb,
   );
 
   set id(int? value) => _id = value;
@@ -29,9 +31,11 @@ class ContatosModel {
   get email => _email;
 
   set email(value) => _email = value;
-  // ContatoType tipo = ContatoType.celular;
 
-  
+  get tipoDb => _tipoDb;
+
+  set tipoDb(value) => _tipoDb = value;
+  // ContatoType tipo = ContatoType.celular;
 
   Map<String, dynamic> toMap() {
     return {
@@ -39,6 +43,7 @@ class ContatosModel {
       'nome': _nome,
       'telefone': _telefone,
       'email': _email,
+      'tipoDb': _tipoDb
       // 'tipo': tipo,
     };
   }
@@ -48,25 +53,39 @@ class ContatosModel {
     _nome = map['nome'];
     _telefone = map['telefone'];
     _email = map['email'];
+    _tipoDb = map['tipoDb'];
   }
 }
 
 enum ContatoType { celular, trabalho, favorito, casa }
 
 class ContatoHelper {
-  static Icon getIconByContatoType(ContatoType tipo) {
-    switch (tipo) {
-      case ContatoType.celular:
-        return Icon(Icons.phone_android, color: Colors.green[700]);
-
-      case ContatoType.casa:
-        return Icon(Icons.home, color: Colors.purple[600]);
-
-      case ContatoType.trabalho:
-        return Icon(Icons.work, color: Colors.brown[600]);
-
-      case ContatoType.favorito:
-        return Icon(Icons.star, color: Colors.yellow[600]);
+  static Icon getIconByContatoType(String tipo) {
+    if (tipo == 'telefone') {
+      return Icon(Icons.phone_android, color: Colors.green[700]);
+    } else if (tipo == 'casa') {
+      return Icon(Icons.home, color: Colors.purple[600]);
+    } else if (tipo == 'trabalho') {
+      return Icon(Icons.work, color: Colors.brown[600]);
+    } else if (tipo == 'favorito') {
+      return Icon(Icons.star, color: Colors.yellow[600]);
+    } else {
+      return Icon(Icons.phone_android, color: Colors.green[700]);
     }
   }
 }
+
+
+// switch (tipo) {
+//       case ContatoType.celular:
+//         return Icon(Icons.phone_android, color: Colors.green[700]);
+
+//       case ContatoType.casa:
+//         return Icon(Icons.home, color: Colors.purple[600]);
+
+//       case ContatoType.trabalho:
+//         return Icon(Icons.work, color: Colors.brown[600]);
+
+//       case ContatoType.favorito:
+//         return Icon(Icons.star, color: Colors.yellow[600]);
+//     }

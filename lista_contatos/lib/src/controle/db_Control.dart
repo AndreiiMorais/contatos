@@ -19,7 +19,12 @@ class DbControl {
     int? resultado = await _db.delete(id);
   }
 
-  void alterar({required ContatosModel alterarContato}) async{
-    
+  void alterar({required ContatosModel alterarContato}) async {
+    int? resultado = await _db.update(alterarContato);
+    if (resultado == null) {
+      print('falha ao alterar');
+    } else {
+      print('alterado com sucesso');
+    }
   }
 }

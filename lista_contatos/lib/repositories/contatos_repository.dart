@@ -84,11 +84,11 @@ class ContatosRepository {
     }
   }
 
-  update(ContatosModel model) async {
+  Future<int?> update(ContatosModel model) async {
     try {
       final Database db = await database;
 
-      await db.update(
+      return await db.update(
         TABLE_NAME,
         model.toMap(),
         where: "id = ?",
@@ -96,7 +96,7 @@ class ContatosRepository {
       );
     } catch (ex) {
       print(ex);
-      return;
+      return null;
     }
   }
 

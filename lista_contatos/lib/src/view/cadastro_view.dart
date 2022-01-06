@@ -15,13 +15,12 @@ class Cadastro extends StatefulWidget {
 
 class _CadastroState extends State<Cadastro> {
   ContatoType tipo = ContatoType.celular;
+  String tipoDb = '';
   ContatosModel lista = ContatosModel('', '', '', '');
   DbControl controle = DbControl();
 
   @override
   Widget build(BuildContext context) {
-    // List<ContatosModel> args =
-    //     ModalRoute.of(context)!.settings.arguments as List<ContatosModel>;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -80,6 +79,7 @@ class _CadastroState extends State<Cadastro> {
               onTap: () {
                 setState(() {
                   tipo = ContatoType.celular;
+                  tipoDb = 'telefone';
                 });
               },
               value: ContatoType.celular,
@@ -89,6 +89,7 @@ class _CadastroState extends State<Cadastro> {
               onTap: () {
                 setState(() {
                   tipo = ContatoType.casa;
+                  tipoDb = 'casa';
                 });
               },
               value: ContatoType.casa,
@@ -98,6 +99,7 @@ class _CadastroState extends State<Cadastro> {
               onTap: () {
                 setState(() {
                   tipo = ContatoType.trabalho;
+                  tipoDb = 'trabalho';
                 });
               },
               value: ContatoType.trabalho,
@@ -107,6 +109,7 @@ class _CadastroState extends State<Cadastro> {
               onTap: () {
                 setState(() {
                   tipo = ContatoType.favorito;
+                  tipoDb = 'favorito';
                 });
               },
               value: ContatoType.favorito,
@@ -126,6 +129,7 @@ class _CadastroState extends State<Cadastro> {
           lista.nome = name.text;
           lista.telefone = phone.text;
           lista.email = email.text;
+          lista.tipoDb = tipoDb;
           controle.inserir(contatoSelecionado: lista);
           name.clear();
           phone.clear();
