@@ -94,7 +94,9 @@ class EditPage extends StatelessWidget {
                   width: 10,
                 ),
                 CustomEditPageButton(
-                  customOnPressed: () {control.removerContato(id)},
+                  customOnPressed: () {
+                    control.removerContato(args.id!);
+                  },
                   customIcon: Icons.edit,
                   iconColor: Colors.red,
                 ),
