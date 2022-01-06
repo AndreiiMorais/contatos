@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lista_contatos/src/controle/db_Control.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
+import 'package:lista_contatos/widgets/custom_editPage_button.dart';
 
 class EditPage extends StatelessWidget {
+  DbControl control = DbControl();
   EditPage({Key? key}) : super(key: key) {}
 
   @override
@@ -74,90 +77,34 @@ class EditPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  style: ButtonStyle(
-                    overlayColor: MaterialStateProperty.resolveWith<Color>(
-                        (states) => Colors.blue.shade200),
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                        (states) => Colors.white),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        side: const BorderSide(color: Colors.blue, width: 2),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: Icon(
-                    Icons.email,
-                    color: Colors.blue.shade900,
-                  ),
+                CustomEditPageButton(
+                  customOnPressed: () {},
+                  customIcon: Icons.email,
+                  iconColor: Colors.blue.shade900,
                 ),
                 const SizedBox(
                   width: 10,
                 ),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    overlayColor: MaterialStateProperty.resolveWith<Color>(
-                        (states) => Colors.blue.shade200),
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                        (states) => Colors.white),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        side: const BorderSide(color: Colors.blue, width: 2),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: const Icon(
-                    Icons.sms,
-                    color: Colors.orange,
-                  ),
+                CustomEditPageButton(
+                  customOnPressed: () {},
+                  customIcon: Icons.sms,
+                  iconColor: Colors.orange,
                 ),
                 const SizedBox(
                   width: 10,
                 ),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    overlayColor: MaterialStateProperty.resolveWith<Color>(
-                        (states) => Colors.blue.shade200),
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                        (states) => Colors.white),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        side: const BorderSide(color: Colors.blue, width: 2),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: const Icon(
-                    Icons.edit,
-                    color: Colors.red,
-                  ),
+                CustomEditPageButton(
+                  customOnPressed: () {control.removerContato(id)},
+                  customIcon: Icons.edit,
+                  iconColor: Colors.red,
                 ),
                 const SizedBox(
                   width: 10,
                 ),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    overlayColor: MaterialStateProperty.resolveWith<Color>(
-                        (states) => Colors.blue.shade200),
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                        (states) => Colors.white),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        side: const BorderSide(color: Colors.blue, width: 2),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: const Icon(
-                    Icons.delete,
-                    color: Colors.grey,
-                  ),
+                CustomEditPageButton(
+                  customOnPressed: () {},
+                  customIcon: Icons.delete,
+                  iconColor: Colors.grey,
                 ),
               ],
             ),
@@ -166,6 +113,8 @@ class EditPage extends StatelessWidget {
               children: [
                 ElevatedButton(
                   style: ButtonStyle(
+                    overlayColor: MaterialStateProperty.resolveWith<Color>(
+                        (states) => Colors.blue.shade300),
                     backgroundColor: MaterialStateProperty.resolveWith<Color>(
                         (states) => Colors.green),
                     shape: MaterialStateProperty.all(
@@ -174,7 +123,7 @@ class EditPage extends StatelessWidget {
                       ),
                     ),
                     fixedSize: MaterialStateProperty.all(
-                      Size(300, 30),
+                      const Size(300, 30),
                     ),
                   ),
                   onPressed: () {},
