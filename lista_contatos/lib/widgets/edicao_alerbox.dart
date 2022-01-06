@@ -5,6 +5,7 @@ import 'package:lista_contatos/src/model/model_contatos.dart';
 import 'package:lista_contatos/src/settings.dart';
 
 class EdicaoAlerBox extends StatelessWidget {
+  String tipoDb = '';
   ContatosModel contato;
   DbControl control = DbControl();
   EdicaoAlerBox({Key? key, required this.contato}) : super(key: key) {
@@ -60,6 +61,34 @@ class EdicaoAlerBox extends StatelessWidget {
                 ),
               ),
             ),
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    tipoDb = 'casa';
+                  },
+                  icon: Icon(Icons.home, color: Colors.purple[600]),
+                ),
+                IconButton(
+                  onPressed: () {
+                    tipoDb = 'telefone';
+                  },
+                  icon: Icon(Icons.phone_android, color: Colors.green[700]),
+                ),
+                IconButton(
+                  onPressed: () {
+                    tipoDb = 'trabalho';
+                  },
+                  icon: Icon(Icons.work, color: Colors.brown[600]),
+                ),
+                IconButton(
+                  onPressed: () {
+                    tipoDb = 'favorito';
+                  },
+                  icon: Icon(Icons.star, color: Colors.yellow[600]),
+                ),
+              ],
+            )
           ],
         ),
       ),
@@ -70,11 +99,14 @@ class EdicaoAlerBox extends StatelessWidget {
             contatoAlterado.nome = name.text;
             contatoAlterado.telefone = phone.text;
             contatoAlterado.email = email.text;
+            contatoAlterado.tipoDb = tipoDb;
             control.alterar(alterarContato: contatoAlterado);
             name.clear();
             phone.clear();
             email.clear();
-            Navigator.of(context).pop();
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                '/edit', ModalRoute.withName('/'),
+                arguments: contatoAlterado);
           },
           child: const Text('Salvar'),
         ),

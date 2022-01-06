@@ -41,32 +41,3 @@ class ConfirmacaoAlerBox extends StatelessWidget {
 }
 
 
-// AlertDialog(
-//       title: const Text('Editar Contato'),
-//       content: Column(
-//         children: [
-//           TextField(
-//             textCapitalization: TextCapitalization.words,
-//             controller: name,
-//             autofocus: true,
-//             decoration: const InputDecoration(
-//               labelText: 'Nome',
-//             ),
-//           ),
-//           TextField(
-//             controller: phone,
-//             autofocus: true,
-//             decoration: const InputDecoration(
-//               labelText: 'Telefone',
-//             ),
-//           ),
-//           TextField(
-//             controller: email,
-//             autofocus: true,
-//             decoration: const InputDecoration(
-//               labelText: 'Email',
-//             ),
-//           ),
-//         ],
-//       ),
-//     );

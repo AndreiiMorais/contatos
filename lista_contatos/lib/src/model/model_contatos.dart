@@ -35,7 +35,7 @@ class ContatosModel {
   get tipoDb => _tipoDb;
 
   set tipoDb(value) => _tipoDb = value;
-  // ContatoType tipo = ContatoType.celular;
+  
 
   Map<String, dynamic> toMap() {
     return {
@@ -74,18 +74,3 @@ class ContatoHelper {
     }
   }
 }
-
-
-// switch (tipo) {
-//       case ContatoType.celular:
-//         return Icon(Icons.phone_android, color: Colors.green[700]);
-
-//       case ContatoType.casa:
-//         return Icon(Icons.home, color: Colors.purple[600]);
-
-//       case ContatoType.trabalho:
-//         return Icon(Icons.work, color: Colors.brown[600]);
-
-//       case ContatoType.favorito:
-//         return Icon(Icons.star, color: Colors.yellow[600]);
-//     }
