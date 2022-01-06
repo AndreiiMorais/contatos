@@ -18,4 +18,8 @@ class DbControl {
   void removerContato(int id) async {
     int? resultado = await _db.delete(id);
   }
+
+  void alterar({required ContatoslModel alterarContato}) async{
+    
+  }
 }

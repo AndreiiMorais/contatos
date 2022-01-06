@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:lista_contatos/src/controle/db_Control.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
+import 'package:lista_contatos/widgets/confirmacao_alertbox.dart';
 import 'package:lista_contatos/widgets/custom_editPage_button.dart';
 
-class EditPage extends StatelessWidget {
-  DbControl control = DbControl();
-  EditPage({Key? key}) : super(key: key) {}
+class EditPage extends StatefulWidget {
+  const EditPage({Key? key}) : super(key: key);
 
+  @override
+  State<EditPage> createState() => _EditPageState();
+}
+
+class _EditPageState extends State<EditPage> {
+  DbControl control = DbControl();
   @override
   Widget build(BuildContext context) {
     ContatosModel args =
@@ -18,6 +24,7 @@ class EditPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // ignore: sized_box_for_whitespace
             Container(
               height: 200,
               width: MediaQuery.of(context).size.width,
@@ -94,9 +101,7 @@ class EditPage extends StatelessWidget {
                   width: 10,
                 ),
                 CustomEditPageButton(
-                  customOnPressed: () {
-                    control.removerContato(args.id!);
-                  },
+                  customOnPressed: () {},
                   customIcon: Icons.edit,
                   iconColor: Colors.red,
                 ),
@@ -104,7 +109,11 @@ class EditPage extends StatelessWidget {
                   width: 10,
                 ),
                 CustomEditPageButton(
-                  customOnPressed: () {},
+                  customOnPressed: () {
+                    setState(() {
+                      confirmacao(args.id!);
+                    });
+                  },
                   customIcon: Icons.delete,
                   iconColor: Colors.grey,
                 ),
@@ -136,6 +145,15 @@ class EditPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void confirmacao(int id) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return ConfirmacaoAlerBox(id: id);
+      },
     );
   }
 }
