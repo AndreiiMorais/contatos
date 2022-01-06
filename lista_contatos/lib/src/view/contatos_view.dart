@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lista_contatos/repositories/contatos_repository.dart';
 import 'package:lista_contatos/src/controle/db_Control.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
-import 'package:lista_contatos/src/view/edit_page.dart';
 
 class ContatosView extends StatefulWidget {
   const ContatosView({
