@@ -97,3 +97,29 @@ class ContatoTypeAdapter extends TypeAdapter<ContatoType> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$_Contato _$$_ContatoFromJson(Map<String, dynamic> json) => _$_Contato(
+      name: json['name'] as String,
+      phone: json['phone'] as String,
+      email: json['email'] as String,
+      type: $enumDecode(_$ContatoTypeEnumMap, json['type']),
+    );
+
+Map<String, dynamic> _$$_ContatoToJson(_$_Contato instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'phone': instance.phone,
+      'email': instance.email,
+      'type': _$ContatoTypeEnumMap[instance.type],
+    };
+
+const _$ContatoTypeEnumMap = {
+  ContatoType.celular: 'celular',
+  ContatoType.trabalho: 'trabalho',
+  ContatoType.favorito: 'favorito',
+  ContatoType.casa: 'casa',
+};
