@@ -32,17 +32,17 @@ enum ContatoType {
 }
 
 class ContatoHelper {
-  static Icon getIconByContatoType(String tipo) {
-    if (tipo == 'telefone') {
-      return Icon(Icons.phone_android, color: Colors.green[700]);
-    } else if (tipo == 'casa') {
-      return Icon(Icons.home, color: Colors.purple[600]);
-    } else if (tipo == 'trabalho') {
-      return Icon(Icons.work, color: Colors.brown[600]);
-    } else if (tipo == 'favorito') {
-      return Icon(Icons.star, color: Colors.yellow[600]);
-    } else {
-      return Icon(Icons.phone_android, color: Colors.green[700]);
+  static Icon getIconByContatoType(ContatoType tipo) {
+    //TODO refatorar para somente ifs
+    switch (tipo) {
+      case ContatoType.celular:
+        return Icon(Icons.phone_android, color: Colors.green[700]);
+      case ContatoType.trabalho:
+        return Icon(Icons.work, color: Colors.brown[600]);
+      case ContatoType.favorito:
+        return Icon(Icons.star, color: Colors.yellow[600]);
+      case ContatoType.casa:
+        return Icon(Icons.home, color: Colors.purple[600]);
     }
   }
 }

@@ -138,7 +138,7 @@ class _$_Contato implements _Contato {
       {@HiveField(0) required this.name,
       @HiveField(1) required this.phone,
       @HiveField(2) required this.email,
-      @HiveField(3) required this.type});
+      @HiveField(3) required this.type,});
 
   factory _$_Contato.fromJson(Map<String, dynamic> json) =>
       _$$_ContatoFromJson(json);

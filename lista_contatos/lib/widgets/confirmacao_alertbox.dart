@@ -1,17 +1,15 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:lista_contatos/src/controle/db_Control.dart';
-import 'package:lista_contatos/src/settings.dart';
+import 'package:lista_contatos/repositories/contatos_repository.dart';
 
 class ConfirmacaoAlerBox extends StatelessWidget {
-  DbControl control = DbControl();
-  final int id;
-
+  final int index;
   ConfirmacaoAlerBox({
+    required this.index,
     Key? key,
-    required this.id,
   }) : super(key: key);
+  final _repository = ContatosRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +19,7 @@ class ConfirmacaoAlerBox extends StatelessWidget {
       actions: [
         ElevatedButton(
           onPressed: () {
-            control.removerContato(id);
-            name.clear();
-            phone.clear();
-            email.clear();
+            _repository.delete(index: index);
             Navigator.of(context).popUntil(ModalRoute.withName('/'));
           },
           child: const Text('Excluir'),
@@ -33,11 +28,9 @@ class ConfirmacaoAlerBox extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Cancelar'),
+          child: const Text('Cancelar'),
         )
       ],
     );
   }
 }
-
-

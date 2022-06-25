@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lista_contatos/src/controle/db_Control.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 import 'package:lista_contatos/widgets/confirmacao_alertbox.dart';
 import 'package:lista_contatos/widgets/custom_editPage_button.dart';
@@ -13,14 +12,12 @@ class EditPage extends StatefulWidget {
 }
 
 class _EditPageState extends State<EditPage> {
-  DbControl control = DbControl();
   @override
   Widget build(BuildContext context) {
-    ContatosModel args =
-        ModalRoute.of(context)!.settings.arguments as ContatosModel;
+    Contato args = ModalRoute.of(context)!.settings.arguments as Contato;
     return Scaffold(
       appBar: AppBar(
-        title: Text(args.nome.toUpperCase()),
+        title: Text(args.name.toUpperCase()),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -33,12 +30,12 @@ class _EditPageState extends State<EditPage> {
             ),
             Row(
               children: [
-                ContatoHelper.getIconByContatoType(args.tipoDb),
+                ContatoHelper.getIconByContatoType(args.type),
                 const SizedBox(
                   width: 10,
                 ),
                 Text(
-                  args.nome,
+                  args.name,
                   maxLines: 2,
                   softWrap: true,
                   style: const TextStyle(
@@ -74,7 +71,7 @@ class _EditPageState extends State<EditPage> {
                   width: 10,
                 ),
                 Text(
-                  args.telefone,
+                  args.phone,
                   style: const TextStyle(fontSize: 25),
                 ),
               ],
@@ -116,7 +113,7 @@ class _EditPageState extends State<EditPage> {
                 CustomEditPageButton(
                   customOnPressed: () {
                     setState(() {
-                      confirmacao(args.id!);
+                      confirmacao(0);
                     });
                   },
                   customIcon: Icons.delete,
@@ -153,16 +150,16 @@ class _EditPageState extends State<EditPage> {
     );
   }
 
-  void confirmacao(int id) {
+  void confirmacao(int index) {
     showDialog(
       context: context,
       builder: (context) {
-        return ConfirmacaoAlerBox(id: id);
+        return ConfirmacaoAlerBox(index: index);
       },
     );
   }
 
-  void editar(ContatosModel contato) {
+  void editar(Contato contato) {
     showDialog(
       context: context,
       builder: (context) {

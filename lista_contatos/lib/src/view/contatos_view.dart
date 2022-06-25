@@ -1,79 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lista_contatos/repositories/contatos_repository.dart';
-import 'package:lista_contatos/src/controle/db_Control.dart';
 import 'package:lista_contatos/src/model/model_contatos.dart';
 
-class ContatosView extends StatefulWidget {
-  const ContatosView({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<ContatosView> createState() => _ContatosViewState();
-}
-
-class _ContatosViewState extends State<ContatosView> {
-  List<ContatosModel> exibir = [];
-  DbControl db = DbControl();
-  ContatosView contatos = const ContatosView();
-  final ContatosRepository _db = ContatosRepository();
-
-  void listarContatos() async {
-    List contatosListados = await _db.getContatos();
-
-    List<ContatosModel> tempList = <ContatosModel>[];
-
-    for (var item in contatosListados) {
-      ContatosModel c = ContatosModel.fromMap(item);
-      tempList.add(c);
-    }
-    setState(() {
-      exibir = tempList;
-      tempList = [];
-      exibir.sort((a, b) => a.nome.compareTo(b.nome));
-    });
+class ContatosView extends StatelessWidget {
+  final _repository = ContatosRepository();
+  late Box<Contato> contatosBox;
+  ContatosView({Key? key}) : super(key: key) {
+    getBox();
   }
 
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      listarContatos();
-    });
+  void getBox() async {
+    contatosBox = await _repository.getBox();
   }
 
   @override
   Widget build(BuildContext context) {
-    listarContatos();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Contatos'),
       ),
-      body: ListView.builder(
-        itemCount: exibir.length,
-        itemBuilder: (context, index) => ListTile(
-          onTap: () {
-            Navigator.of(context).pushNamed('/edit', arguments: exibir[index]);
-          },
-          leading: CircleAvatar(
-            child: ContatoHelper.getIconByContatoType(exibir[index].tipoDb),
-            backgroundColor: Colors.blue[400],
-          ),
-          title: Text(exibir[index].nome),
-          subtitle: Text(exibir[index].telefone),
-          trailing: IconButton(
-            icon: const Icon(Icons.call),
-            color: Colors.green,
-            onPressed: () {},
-          ),
-        ),
+      body: ValueListenableBuilder<Box<Contato>>(
+        valueListenable: contatosBox.listenable(),
+        builder: (context, value, child) {
+          return ListView.builder(
+            itemCount: contatosBox.length,
+            itemBuilder: (context, index) => ListTile(
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  '/edit',
+                  arguments: contatosBox.getAt(index),
+                );
+              },
+              leading: CircleAvatar(
+                child: ContatoHelper.getIconByContatoType(
+                  contatosBox.getAt(index)!.type,
+                ),
+                backgroundColor: Colors.blue[400],
+              ),
+              title: Text(
+                contatosBox.getAt(index)!.name,
+              ),
+              subtitle: Text(
+                contatosBox.getAt(index)!.phone,
+              ),
+              trailing: IconButton(
+                icon: const Icon(Icons.call),
+                color: Colors.green,
+                onPressed: () {},
+              ),
+            ),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
-        // ignore: prefer_const_constructors
-        child: (Icon(Icons.add)),
+        child: (const Icon(Icons.add)),
         elevation: 20,
         onPressed: () {
-          Navigator.of(context).pushReplacementNamed('cadastro');
+          Navigator.of(context).pushNamed('cadastro');
         },
       ),
     );
