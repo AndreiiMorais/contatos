@@ -1,63 +1,35 @@
-// ignore_for_file: unnecessary_getters_setters
-
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive/hive.dart';
 
-class ContatosModel {
-  int? _id;
-  String _nome = '';
-  String _telefone = '';
-  String _email = '';
-  String _tipoDb = 'telefone';
+part 'model_contatos.freezed.dart';
+part 'model_contatos.g.dart';
 
-  int? get id => _id;
+@HiveType(typeId: 0)
+@freezed
+class Contato with _$Contato {
+  const factory Contato({
+    @HiveField(0) required String name,
+    @HiveField(1) required String phone,
+    @HiveField(2) required String email,
+    @HiveField(3) required ContatoType type,
+  }) = _Contato;
 
-  ContatosModel(
-    this._nome,
-    this._telefone,
-    this._email,
-    this._tipoDb,
-  );
-
-  set id(int? value) => _id = value;
-
-  get nome => _nome;
-
-  set nome(value) => _nome = value;
-
-  get telefone => _telefone;
-
-  set telefone(value) => _telefone = value;
-
-  get email => _email;
-
-  set email(value) => _email = value;
-
-  get tipoDb => _tipoDb;
-
-  set tipoDb(value) => _tipoDb = value;
-  
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': _id,
-      'nome': _nome,
-      'telefone': _telefone,
-      'email': _email,
-      'tipoDb': _tipoDb
-      // 'tipo': tipo,
-    };
-  }
-
-  ContatosModel.fromMap(Map<String, dynamic> map) {
-    _id = map['id'];
-    _nome = map['nome'];
-    _telefone = map['telefone'];
-    _email = map['email'];
-    _tipoDb = map['tipoDb'];
-  }
+  factory Contato.fromJson(Map<String, dynamic> json) =>
+      _$ContatoFromJson(json);
 }
 
-enum ContatoType { celular, trabalho, favorito, casa }
+@HiveType(typeId: 1)
+enum ContatoType {
+  @HiveField(0)
+  celular,
+  @HiveField(1)
+  trabalho,
+  @HiveField(2)
+  favorito,
+  @HiveField(3)
+  casa,
+}
 
 class ContatoHelper {
   static Icon getIconByContatoType(String tipo) {
