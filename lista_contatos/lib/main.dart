@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lista_contatos/src/view/cadastro_view.dart';
 import 'package:lista_contatos/src/view/contatos_view.dart';
 import 'package:lista_contatos/src/view/edit_page.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
   runApp(const MyApp());
 }
 
@@ -21,8 +23,8 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => ContatosView(),
-          'cadastro': (context) => Cadastro(),
-          '/edit': (context) => EditPage(),
+          'cadastro': (context) => const Cadastro(),
+          '/edit': (context) => const EditPage(),
         });
   }
 }

@@ -3,14 +3,12 @@ import 'package:hive/hive.dart';
 abstract class HiveRepository<T> {
   String get boxName;
 
-  Future<Box<T>> getBox() {
-    return Hive.openBox<T>(boxName);
+  Future<CollectionBox<T>> getBox() async {
+    final collection = await BoxCollection.open('collection', {boxName});
+    return await collection.openBox(boxName);
   }
 
-  Future<void> closeBox() async {
-    final box = await getBox();
-    await box.compact();
-    await box.close();
+  Future<void> closeAllBoxes() async {
   }
 
   ///Creates a new contact using the index for auto increment key

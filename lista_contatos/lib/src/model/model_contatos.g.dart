@@ -114,7 +114,7 @@ Map<String, dynamic> _$$_ContatoToJson(_$_Contato instance) =>
       'name': instance.name,
       'phone': instance.phone,
       'email': instance.email,
-      'type': _$ContatoTypeEnumMap[instance.type],
+      'type': _$ContatoTypeEnumMap[instance.type]!,
     };
 
 const _$ContatoTypeEnumMap = {

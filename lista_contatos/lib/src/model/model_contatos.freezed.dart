@@ -138,7 +138,7 @@ class _$_Contato implements _Contato {
       {@HiveField(0) required this.name,
       @HiveField(1) required this.phone,
       @HiveField(2) required this.email,
-      @HiveField(3) required this.type,});
+      @HiveField(3) required this.type});
 
   factory _$_Contato.fromJson(Map<String, dynamic> json) =>
       _$$_ContatoFromJson(json);
@@ -203,16 +203,16 @@ abstract class _Contato implements Contato {
 
   @override
   @HiveField(0)
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
   @HiveField(1)
-  String get phone => throw _privateConstructorUsedError;
+  String get phone;
   @override
   @HiveField(2)
-  String get email => throw _privateConstructorUsedError;
+  String get email;
   @override
   @HiveField(3)
-  ContatoType get type => throw _privateConstructorUsedError;
+  ContatoType get type;
   @override
   @JsonKey(ignore: true)
   _$$_ContatoCopyWith<_$_Contato> get copyWith =>
